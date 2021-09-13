@@ -1,0 +1,10 @@
+version: "3"
+services:
+  web:
+    build: "./rest-api"
+    ports:
+      - "5000:5000"
+    links:
+      - my_db
+  db:
+    build: "./db"
