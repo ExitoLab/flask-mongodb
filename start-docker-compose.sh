@@ -3,4 +3,4 @@
 docker system prune -f
 
 docker-compose build
-docker-compose up
+docker-compose up -d
