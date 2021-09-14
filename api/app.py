@@ -4,14 +4,15 @@ from bson.objectid import ObjectId
 import socket
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://mongo:27017/dev"
+app.config["MONGO_URI"] = "mongodb://mongodb:27017/dev"
 mongo = PyMongo(app)
 db = mongo.db
-@app.route("/")
+
+@app.route("/healthz")
 def index():
     hostname = socket.gethostname()
     return jsonify(
-        message="Welcome to Tasks app! I am running inside {} pod!".format(hostname)
+        message="Checking health endpoint {} pod!".format(hostname)
     )
 
 @app.route("/tasks")
