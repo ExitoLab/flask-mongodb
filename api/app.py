@@ -1,10 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import socket
+import socket,os
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://mongodb:27017/dev"
+app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
 mongo = PyMongo(app)
 db = mongo.db
 
@@ -69,5 +69,7 @@ def delete_all_tasks():
     return jsonify(
         message="All Tasks deleted!"
     )
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    ENVIRONMENT_PORT = os.environ.get("APP_PORT", 5000)
+    app.run(host='0.0.0.0', port=ENVIRONMENT_PORT)
