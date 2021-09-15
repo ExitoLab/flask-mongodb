@@ -2,7 +2,6 @@
 FROM python:3.8
 
 # Set work directory.
-RUN mkdir /opt/app
 WORKDIR /opt/app
 
 # Copy entire project into work directory
