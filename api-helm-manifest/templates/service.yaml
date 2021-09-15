@@ -1,18 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
+  name: {{ template "fullname" . }}
   labels:
-    app: api
-    app.kubernetes.io/managed-by: Helm
-  name: api
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   ports:
-  - port: {{ .Values.port }}
-    protocol: TCP
-    targetPort: {{ .Values.targetPort }}
+    - port: {{ .Values.service.externalPort }}
+      targetPort: {{ .Values.service.internalPort }}
+      protocol: TCP
+      name: {{ .Values.service.name }}
   selector:
-    app: api
-  type: NodePort
-status:
-  loadBalancer: {}
+    app: {{ template "name" . }}
+    release: {{ .Release.Name }}

@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "api.fullname" . }}
+  name: {{ template "fullname" . }}
   labels:
-    app: {{ template "api.name" . }}
+    app: {{ template "name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -16,7 +16,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template ".name" . }}
+        app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -27,7 +27,7 @@ spec:
           - name: PORT
             value: "{{ .Values.service.internalPort }}"
         ports:
-            - containerPort: {{ .Values.service.internalPort }}
+        - containerPort: {{ .Values.service.internalPort }}
           livenessProbe:
             httpGet:
               path: /healthz
@@ -38,9 +38,9 @@ spec:
               port: {{ .Values.service.internalPort }}
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "250m"
+            memory: "{{ .Values.resources.requests.memory }}"
+            cpu: "{{ .Values.resources.requests.cpu }}"
           limits:
-            memory: "256Mi"
-            cpu: "500m"  
+            memory: "{{ .Values.resources.limits.memory }}"
+            cpu: "{{ .Values.resources.limits.cpu }}" 
 status: {}
