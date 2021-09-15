@@ -12,7 +12,7 @@ db = mongo.db
 def index():
     hostname = socket.gethostname()
     return jsonify(
-        message="Checking health endpoint {} pod!".format(hostname)
+        health_check="The application is running in this pod {}".format(hostname)
     )
 
 @app.route("/tasks")
