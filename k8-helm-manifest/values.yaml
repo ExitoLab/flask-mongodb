@@ -3,7 +3,7 @@
 replicaCount: 1
 image:
   repository: talk2toks/flask-api
-  tag: v0.0.5
+  tag: v0.0.8
   pullPolicy: Always
 service:
   name: flask-api
@@ -13,11 +13,11 @@ service:
   targetPort: 5000
 resources:
   requests:
-    memory: "256Mi"
+    memory: "64Mi"
     cpu: "512Mi"
   limits:
-    memory: "512Mi"
-    cpu: "1024m"
+    memory: "128Mi"
+    cpu: "1Gi"
 mongodb:
   MONGODB_HOSTNAME: "mongodb"
   MONGODB_DATABASE: "todo"

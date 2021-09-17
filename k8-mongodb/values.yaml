@@ -418,18 +418,13 @@ containerSecurityContext:
 ## @param resources.requests The requested resources for MongoDB&reg; containers
 ##
 resources:
-  ## Example:
-  ## limits:
-  ##    cpu: 100m
-  ##    memory: 128Mi
-  ##
-  limits: {}
-  ## Examples:
-  ## requests:
-  ##    cpu: 100m
-  ##    memory: 128Mi
-  ##
-  requests: {}
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
 ## MongoDB&reg; pods' liveness probe. Evaluated as a template.
 ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 ## @param livenessProbe.enabled Enable livenessProbe
@@ -647,18 +642,13 @@ externalAccess:
     ## @param externalAccess.autoDiscovery.resources.requests Init container auto-discovery resource requests
     ##
     resources:
-      ## Example:
-      ## limits:
-      ##    cpu: 100m
-      ##    memory: 128Mi
-      ##
-      limits: {}
-      ## Examples:
-      ## requests:
-      ##    cpu: 100m
-      ##    memory: 128Mi
-      ##
-      requests: {}
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      
   ## Parameters to configure K8s service(s) used to externally access MongoDB&reg;
   ## A new service per broker will be created
   ##
@@ -942,18 +932,13 @@ volumePermissions:
   ## @param volumePermissions.resources.requests Init container volume-permissions resource requests
   ##
   resources:
-    ## Example:
-    ## limits:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    limits: {}
-    ## Examples:
-    ## requests:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    
   ## Init container Security Context
   ## Note: the chown of the data folder is done to containerSecurityContext.runAsUser
   ## and not the below volumePermissions.securityContext.runAsUser
@@ -1108,18 +1093,12 @@ arbiter:
   ## @param arbiter.resources.requests The requested resources for Arbiter containers
   ##
   resources:
-    ## Example:
-    ## limits:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    limits: {}
-    ## Examples:
-    ## requests:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   ## MongoDB&reg; Arbiter pods' liveness probe. Evaluated as a template.
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param arbiter.livenessProbe.enabled Enable livenessProbe
@@ -1341,18 +1320,12 @@ hidden:
   ## @param hidden.resources.requests The requested resources for hidden node containers
   ##
   resources:
-    ## Example:
-    ## limits:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    limits: {}
-    ## Examples:
-    ## requests:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+       cpu: 100m
+       memory: 128Mi
   ## MongoDB&reg; Hidden pods' liveness probe. Evaluated as a template.
   ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
   ## @param hidden.livenessProbe.enabled Enable livenessProbe
@@ -1530,18 +1503,12 @@ metrics:
   ## @param metrics.resources.requests The requested resources for Prometheus exporter containers
   ##
   resources:
-    ## Example:
-    ## limits:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    limits: {}
-    ## Examples:
-    ## requests:
-    ##    cpu: 100m
-    ##    memory: 128Mi
-    ##
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
   ## @param metrics.containerPort Port of the Prometheus metrics container
   ##
   containerPort: 9216

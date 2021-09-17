@@ -33,7 +33,7 @@ install-mongodb: ## install  mongodb
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm install mongodb bitnami/mongodb -f k8-mongodb/values.yaml
 	@echo 'wait for 60s for the database to come up'
-	sleep 60s
+	sleep 30s
 
 install-app: install-mongodb ## install rest-api
 	@echo 'Installing the rest-api'
@@ -43,8 +43,8 @@ upgrade-mongodb: ## upgrade  mongodb
 	@echo 'Upgrading mongodb using helmcharts'
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
 	helm upgrade mongodb bitnami/mongodb -f k8-mongodb/values.yaml
-	@echo 'wait for 60s for the database to come up'
-	sleep 60s
+	@echo 'wait for 30s for the database to come up'
+	sleep 30s
 
 upgrade-app: upgrade-mongodb ## upgrade rest-api
 	@echo 'Upgrading the rest-api'
