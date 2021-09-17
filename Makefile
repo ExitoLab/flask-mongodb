@@ -1,14 +1,23 @@
-.PHONY: all
-all: start-docker-compose
-docker-compose: start-docker-compose
-docker-compose-down: docker-compose-down
+.PHONY: compose-up compose-build compose-down compose-restart compose-tail compose-top compose-ps
 
 SHELL := /bin/bash -l
 
-start-docker-compose: docker-compose-down
-	docker system prune -f && \
-	docker-compose build && \
+compose-up: compose-down compose-build ## Create and start containers
 	docker-compose up -d
 
-docker-compose-down: 
-	docker-compose down
+compose-down: ## Stop and remove containers, networks, images, and volumes
+	docker-compose down --remove-orphans
+
+compose-build: ## Build or rebuild services
+	docker-compose build --no-cache
+
+compose-restart: compose-up ## restart services
+
+compose-tail: ## Tail output from containers
+	docker-compose logs -f
+
+compose-top: ## Display the running processes
+	docker-compose top
+
+compose-ps: ## List containers
+	docker-compose ps
