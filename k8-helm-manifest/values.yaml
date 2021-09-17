@@ -1,10 +1,10 @@
 # Default values for api-helm-chart.
 # Declare variables to be passed into your templates.
-replicaCount: 2
+replicaCount: 1
 image:
   repository: talk2toks/flask-api
-  tag: v0.0.2
-  pullPolicy: IfNotPresent
+  tag: v0.0.8
+  pullPolicy: Always
 service:
   name: flask-api
   externalPort: 80
@@ -13,8 +13,11 @@ service:
   targetPort: 5000
 resources:
   requests:
-    memory: "128Mi"
-    cpu: "250m"
+    memory: "64Mi"
+    cpu: "512Mi"
   limits:
-    memory: "256Mi"
-    cpu: "500m"
+    memory: "128Mi"
+    cpu: "1Gi"
+mongodb:
+  MONGODB_HOSTNAME: "mongodb"
+  MONGODB_DATABASE: "todo"

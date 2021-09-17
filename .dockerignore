@@ -1,0 +1,11 @@
+k8-helm-manifest/*
+k8-mongodb/*
+nginx-ingress-controller/*
+.gitignore
+
+docker-compose.yml
+Dockerfile
+Makefile
+
+README.md
+start-docker-compose.sh
