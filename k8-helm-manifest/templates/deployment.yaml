@@ -11,7 +11,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: api
+      app: flask-api
   strategy: {}
   template:
     metadata:
@@ -26,16 +26,24 @@ spec:
         env:
           - name: PORT
             value: "{{ .Values.service.internalPort }}"
+          - name: MONGODB_HOSTNAME
+            value: "{{ .Values.mongodb.MONGODB_HOSTNAME }}"
+          - name: MONGODB_DATABASE
+            value: "{{ .Values.mongodb.MONGODB_DATABASE }}"
         ports:
         - containerPort: {{ .Values.service.internalPort }}
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.service.internalPort }}
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: {{ .Values.service.internalPort }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.service.internalPort }}
+          failureThreshold: 1
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.service.internalPort }}
+          failureThreshold: 30
+          periodSeconds: 10
         resources:
           requests:
             memory: "{{ .Values.resources.requests.memory }}"

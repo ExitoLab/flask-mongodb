@@ -4,6 +4,9 @@ __pycache__/
 .env
 env/
 
+.DS_Store
+*/.DS_Store
+
 ### VisualStudioCode ###
 .vscode/*
 
