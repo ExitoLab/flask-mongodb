@@ -22,4 +22,3 @@ resources:
 mongodb:
   MONGODB_HOSTNAME: "mongodb"
   MONGODB_DATABASE: "todo"
-  MONGODB_ROOT_USERNAME: "root"
