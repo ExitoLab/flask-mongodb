@@ -31,12 +31,12 @@ spec:
           - name: MONGODB_DATABASE
             value: "{{ .Values.mongodb.MONGODB_DATABASE }}"
           - name: MONGODB_ROOT_USERNAME
+            value: "root"
+          - name: MONGODB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mongodb
-                key: mongodb-root-username
-          - name: MONGODB_ROOT_PASSWORD
-            value: "root"
+                key: mongodb-root-password
         ports:
         - containerPort: {{ .Values.service.externalPort }}
         livenessProbe:
