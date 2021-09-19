@@ -1,5 +1,5 @@
 .PHONY: compose-up compose-build compose-down compose-restart compose-tail compose-top compose-ps #docker-compose
-.PHONY: install-api upgrade-app uninstall-app 
+.PHONY: install-api uninstall-app 
 
 SHELL := /bin/bash -l
 
@@ -23,32 +23,20 @@ compose-top: ## Display the running processes
 compose-ps: ## List containers
 	docker-compose ps
 
-install-nginx-controller:  ## Install nginx controller
-	@echo 'Installing nginx controlle using helmcharts'
+install-nginx-controller: install-nginx-controller ## Install nginx controller
+	@echo 'Installing nginx controller using helmcharts'
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
-	helm install nginx-ingress-controller bitnami/nginx-ingress-controller
+	helm upgrade --install nginx-ingress-controller bitnami/nginx-ingress-controller
+	sleep 30s
 
 install-mongodb: ## install  mongodb
 	@echo 'Installing mongodb using helmcharts'
 	helm repo add bitnami https://charts.bitnami.com/bitnami && \
-	helm install mongodb bitnami/mongodb -f k8-mongodb/values.yaml
-	@echo 'wait for 60s for the database to come up'
-	sleep 30s
-
-install-app: install-mongodb ## install rest-api
+	helm upgrade --install --wait --timeout 120s --atomic mongodb bitnami/mongodb -f k8-mongodb/values.yaml
+	
+install-app: install-nginx-controller install-mongodb ## install rest-api
 	@echo 'Installing the rest-api'
-	helm install flask-api ./k8-helm-manifest -f k8-helm-manifest/values.yaml
-
-upgrade-mongodb: ## upgrade  mongodb
-	@echo 'Upgrading mongodb using helmcharts'
-	helm repo add bitnami https://charts.bitnami.com/bitnami && \
-	helm upgrade mongodb bitnami/mongodb -f k8-mongodb/values.yaml
-	@echo 'wait for 30s for the database to come up'
-	sleep 30s
-
-upgrade-app: upgrade-mongodb ## upgrade rest-api
-	@echo 'Upgrading the rest-api'
-	helm upgrade flask-api ./k8-helm-manifest -f k8-helm-manifest/values.yaml
+	helm upgrade --install --wait --timeout 120s --atomic flask-api ./k8-helm-manifest -f k8-helm-manifest/values.yaml
 
 delete-mongodb: ## upgrade  mongodb
 	@echo 'Deleting mongodb using helmcharts'
@@ -59,8 +47,12 @@ delete-app: delete-mongodb ## upgrade rest-api
 	@echo 'Deleting the rest-api'
 	helm delete flask-api
 
+delete-nginx-controller: ## Delete nginx controller
+	@echo 'Deleting nginx controller using helmcharts'
+	helm delete nginx-ingress-controller
+
 install-api: install-app ## install the application
 
-upgrade-api: upgrade-app ## upgrade the application
+uninstall-app: delete-nginx-controller delete-app ## uninstall the application
 
-uninstall-app: delete-app ## uninstall the applicationhelm delete api ./k8-helm-manifest -f k8-helm-manifest/values.yaml
+install-nginx-controller: install-nginx-controller

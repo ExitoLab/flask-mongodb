@@ -8,12 +8,9 @@ app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_HOSTNAME'] + ':2701
 mongo = PyMongo(app)
 db = mongo.db
 
-@app.route("/healthz")
-def index():
-    hostname = socket.gethostname()
-    return jsonify(
-        health_check="The application is running in this pod {}".format(hostname)
-    )
+@app.route('/healthz')
+def health():
+    return 'OK'
 
 @app.route("/tasks")
 def get_all_tasks():
