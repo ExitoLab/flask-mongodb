@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from urllib.parse import quote_plus
-import socket,os
+import os
 
 
 app = Flask(__name__)
