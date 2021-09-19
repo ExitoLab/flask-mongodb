@@ -2,11 +2,11 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from urllib.parse import quote_plus
-import socket,os
+import os
 
 
 app = Flask(__name__)
-if os.environ.get('MONGODB_USERNAME', None) is not None and os.environ.get('MONGODB_PASSWORD', None) is not None:
+if os.environ.get('MONGODB_ROOT_USERNAME', None) is not None and os.environ.get('MONGODB_ROOT_PASSWORD', None) is not None:
     app.config["MONGO_URI"] = 'mongodb://' + quote_plus(os.environ['MONGODB_ROOT_USERNAME']) + ":"  + quote_plus(os.environ['MONGODB_ROOT_PASSWORD'])  +  "@" + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
 else:
     app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
